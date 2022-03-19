@@ -305,6 +305,15 @@ impl Eq for u8 {
     }
 }
 
+impl Eq for str {
+    fn eq(self, other: Self) -> bool {
+        asm(r1: self, r2: other, r3) {
+            eq r3 r1 r1;
+            r3: bool
+        }
+    }
+}
+
 impl Eq for b256 {
     fn eq(self, other: Self) -> bool {
         // Both self and other are addresses of the values, so we can use MEQ.
